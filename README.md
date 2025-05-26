@@ -85,12 +85,6 @@ Quantity: 1
 Place: Library
 ```
 
-**CSV Format:**
-```
-Laptop, 1, Library
-USB Drive, 3, Computer Lab
-```
-
 ## Default Credentials
 
 - **Username**: admin
