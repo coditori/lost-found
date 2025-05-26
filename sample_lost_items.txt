@@ -1,0 +1,39 @@
+Item Name: Laptop
+Quantity: 1
+Place: Library
+
+Item Name: USB Drive
+Quantity: 3
+Place: Computer Lab
+
+Item Name: Water Bottle
+Quantity: 2
+Place: Cafeteria
+
+Item Name: Backpack
+Quantity: 1
+Place: Gymnasium
+
+Item Name: Phone Charger
+Quantity: 5
+Place: Classroom 101
+
+Item Name: Sunglasses
+Quantity: 1
+Place: Parking Lot
+
+Item Name: Textbook
+Quantity: 2
+Place: Study Hall
+
+Item Name: Wallet
+Quantity: 1
+Place: Student Center
+
+Item Name: Keys
+Quantity: 4
+Place: Main Entrance
+
+Item Name: Headphones
+Quantity: 2
+Place: Audio Lab 

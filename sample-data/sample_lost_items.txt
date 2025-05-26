@@ -1,0 +1,54 @@
+Lost Items Report - University Library
+======================================
+
+Date: December 2024
+Location: Central Library and Computer Labs
+
+Item Name: MacBook Pro 14-inch
+Quantity: 1
+Place: Computer Lab Room 205
+
+Item Name: iPhone 15
+Quantity: 2
+Place: Library Main Floor
+
+Item Name: USB Flash Drive
+Quantity: 5
+Place: Computer Lab Room 103
+
+Item Name: Wireless Headphones
+Quantity: 3
+Place: Study Room B
+
+Item Name: Water Bottle (Blue)
+Quantity: 4
+Place: Library Cafeteria
+
+Item Name: Notebook (Red Cover)
+Quantity: 2
+Place: Reading Room A
+
+Item Name: Car Keys (Honda)
+Quantity: 1
+Place: Parking Lot
+
+Item Name: Backpack (Black Jansport)
+Quantity: 1
+Place: Library Entrance
+
+Item Name: Wallet (Brown Leather)
+Quantity: 2
+Place: Computer Lab Room 205
+
+Item Name: Charger Cable (USB-C)
+Quantity: 6
+Place: Study Rooms
+
+---
+Alternative Format (Comma-separated):
+
+Smartwatch, 1, Library Second Floor
+Reading Glasses, 3, Study Area
+Umbrella, 2, Main Entrance
+Calculator, 4, Computer Lab Room 103
+Textbook Physics, 1, Reading Room B 
