@@ -2,255 +2,132 @@
 
 A comprehensive Lost & Found management system built with Spring Boot 3, featuring file upload capabilities, basic authentication, and role-based access control.
 
+## Architecture
+
+![Architecture Diagram](docs/flow.drawio.png)
+
 ## Features
 
-- 🔐 **Basic Authentication & Authorization** - Role-based access control (USER/ADMIN)
-- 📄 **PDF File Processing** - Upload and parse PDF files containing lost item records
-- 🔍 **Advanced Search** - Search lost items by name and location
-- 🎯 **Claim Management** - Users can claim items with concurrency control
-- 📊 **Admin Dashboard** - Administrative functions for managing claims and items
-- 🔄 **Retry Mechanism** - Handles optimistic locking failures automatically
-- 📚 **API Documentation** - Interactive Swagger UI documentation
-- 🛡️ **Exception Handling** - Comprehensive error handling and validation
+- **Basic Authentication & Authorization** - Currently using basic auth with role-based access control (USER/ADMIN)
+- **PDF File Processing** - Upload and parse PDF files containing lost item records
+- **Advanced Search** - Search lost items by name and location
+- **Claim Management** - Users can claim items with concurrency control
+- **Admin Dashboard** - Administrative functions for managing claims and items
+- **Retry Mechanism** - Handles optimistic locking failures automatically
+- **API Documentation** - Interactive Swagger UI documentation
 
 ## Technology Stack
 
-- **Java 21**
-- **Spring Boot 3.5.0**
+- **Java 21** + **Spring Boot 3.5.0**
 - **Spring Security** - Basic authentication
-- **Spring Data JPA** - Data persistence
-- **MySQL** - Primary database
-- **H2** - Testing database
+- **Spring Data JPA** + **MySQL/H2**
 - **Apache PDFBox** - PDF processing
 - **Springdoc OpenAPI** - API documentation
-- **Spring Retry** - Retry mechanism
-- **Lombok** - Reduced boilerplate code
 - **Maven** - Dependency management
 
-## Getting Started
+## Quick Start
 
 ### Prerequisites
-
-- Java 21 or higher
+- Java 21+
 - Maven 3.6+
-- MySQL 8.0+ (for production)
-- Git
+- MySQL 8.0+ (optional, H2 included for testing)
 
-### Installation
+### Run the Application
+```bash
+git clone <repository-url>
+cd lostfound
+mvn clean install
+mvn spring-boot:run
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd lostfound
-   ```
-
-2. **Configure Database**
-   
-   For development with MySQL:
-   ```bash
-   # Create database
-   mysql -u root -p
-   CREATE DATABASE lostfound_db;
-   CREATE USER 'lostfound_user'@'localhost' IDENTIFIED BY 'lostfound_password';
-   GRANT ALL PRIVILEGES ON lostfound_db.* TO 'lostfound_user'@'localhost';
-   FLUSH PRIVILEGES;
-   ```
-
-   For quick testing with H2 (current default configuration):
-   - The application is pre-configured to use H2 in-memory database
-   - No additional setup required
-
-3. **Build the application**
-   ```bash
-   mvn clean install
-   ```
-
-4. **Run the application**
-   ```bash
-   mvn spring-boot:run
-   ```
-
-The application will start on `http://localhost:8080`
+The application starts on `http://localhost:8080`
 
 ### Configuration
 
-#### Environment Variables
-
-You can override default configurations using environment variables:
-
+Environment variables:
 ```bash
-# Database Configuration (for MySQL)
+# Database (for MySQL)
 export DB_USERNAME=your_db_username
 export DB_PASSWORD=your_db_password
 
-# Admin Configuration
+# Admin credentials
 export ADMIN_USERNAME=admin
 export ADMIN_PASSWORD=admin123
-
-# File Upload
-export UPLOAD_DIR=./uploads
 ```
 
-#### Application Profiles
-
-- **Default (H2)**: Ready to run with in-memory database
-- **MySQL**: Uncomment MySQL configuration in `application.yml`
-
 ## API Documentation
-
-Once the application is running, access the interactive API documentation:
 
 - **Swagger UI**: http://localhost:8080/swagger-ui.html
 - **OpenAPI JSON**: http://localhost:8080/api-docs
 
-## API Endpoints
+## Key Endpoints
 
 ### User Endpoints
-- `GET /api/user/profile` - Get user profile
 - `GET /api/user/items` - Browse available items
 - `GET /api/user/items/search` - Search items
-- `GET /api/user/items/{id}` - Get item details
 - `POST /api/user/claims` - Create a claim
 - `GET /api/user/claims` - Get user's claims
-- `GET /api/user/claims/{id}` - Get claim details
 
 ### Admin Endpoints
 - `POST /api/admin/upload` - Upload PDF file with lost items
 - `GET /api/admin/claims` - Get all claims
-- `GET /api/admin/claims/status/{status}` - Get claims by status
 - `PUT /api/admin/claims/{id}/status` - Update claim status
-- `GET /api/admin/items` - Get all items
 - `GET /api/admin/stats` - Get system statistics
 
-## Usage Examples
+## PDF Format Support
 
-### 1. Browse Items (with basic authentication)
+The system accepts PDF files with lost items in these formats:
 
-```bash
-curl -X GET http://localhost:8080/api/user/items \
-  -u username:password
-```
-
-### 2. Upload PDF File (Admin only)
-
-```bash
-curl -X POST http://localhost:8080/api/admin/upload \
-  -u admin:admin123 \
-  -F "file=@lost_items.pdf"
-```
-
-### 3. Create a Claim
-
-```bash
-curl -X POST http://localhost:8080/api/user/claims \
-  -u username:password \
-  -H "Content-Type: application/json" \
-  -d '{
-    "lostItemId": 1,
-    "claimedQuantity": 2,
-    "notes": "I think this is mine"
-  }'
-```
-
-## PDF File Format
-
-The system supports PDF files with lost item records in the following formats:
-
-### Format 1: Structured Format
+**Structured Format:**
 ```
 Item Name: Laptop
 Quantity: 1
 Place: Library
-
-Item Name: USB Drive
-Quantity: 3
-Place: Computer Lab
 ```
 
-### Format 2: Comma-Separated Format
+**CSV Format:**
 ```
 Laptop, 1, Library
 USB Drive, 3, Computer Lab
-Water Bottle, 2, Cafeteria
 ```
 
-## Default Users
-
-The application uses basic authentication. You can create users through the database or use the default admin credentials:
+## Default Credentials
 
 - **Username**: admin
 - **Password**: admin123
 - **Role**: ADMIN
 
-## Future Enhancements
-
-- **JWT Authentication**: Planned implementation for stateless authentication
-- **OAuth2 Integration**: Social login capabilities
-- **Real-time Notifications**: WebSocket-based notifications
-- **Mobile App**: React Native mobile application
-
-## Development
-
-### Running Tests
+## Testing
 
 ```bash
 mvn test
 ```
 
-### Building for Production
+## Health Checks
 
-```bash
-mvn clean package -Pprod
-```
-
-### Code Quality
-
-The project includes:
-- Comprehensive exception handling
-- Input validation
-- Logging with SLF4J
-- Transaction management
-- Optimistic locking for concurrency control
-
-## Monitoring and Health Checks
-
-The application includes Actuator endpoints:
-
-- **Health Check**: http://localhost:8080/actuator/health
+- **Health**: http://localhost:8080/actuator/health
 - **Metrics**: http://localhost:8080/actuator/metrics
-- **Info**: http://localhost:8080/actuator/info
 
-## Security Features
+## Future Improvements & Scalability
 
-- **Basic Authentication**
-- **Role-based Access Control**
-- **Password Encryption** with BCrypt
-- **Input Validation**
-- **SQL Injection Prevention**
-- **CORS Configuration**
+### Security Enhancements
+- **Key Vault Integration**: Use Azure Key Vault or AWS Secrets Manager for secure password management
+- **Auth & Rate Limiting**: Implement API key authentication for public API exposure
+- **OAuth2/OIDC Authentication**: Migrate from basic auth to OAuth2/OpenID Connect for production standards - more secure and industry-standard approach
+- **JWT Authentication**: Implement stateless JWT tokens for better scalability
 
-## Error Handling
+### Performance & Scalability
+- **Batch Processing**: Implement batch processing for bulk data operations in production environments
+- **Database Optimization**: Add database indexing and query optimization for large datasets
+- **Caching Layer**: Integrate Redis for frequently accessed data
 
-The application provides comprehensive error handling with:
-- Standardized error responses
-- Validation error details
-- Appropriate HTTP status codes
-- Detailed logging for debugging
+### Observability & Monitoring
+- **Metrics Export**: Export custom metrics using Micrometer to monitoring systems (Prometheus, DataDog)
+- **Distributed Tracing**: Implement OpenTelemetry for request tracing across services
+- **Structured Logging**: Enhanced logging with correlation IDs and structured formats
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-For support and questions:
-- Email: support@lostfound.example.com
-- Documentation: http://localhost:8080/swagger-ui.html 
+### Additional Features
+- **Real-time Notifications**: WebSocket-based notifications for claim updates
+- **Mobile App**: React Native mobile application
+- **OAuth2 Integration**: Social login capabilities
+- **Microservices Architecture**: Split into domain-specific services for better scalability 

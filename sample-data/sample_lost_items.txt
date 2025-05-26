@@ -1,9 +1,3 @@
-Lost Items Report - University Library
-======================================
-
-Date: December 2024
-Location: Central Library and Computer Labs
-
 Item Name: MacBook Pro 14-inch
 Quantity: 1
 Place: Computer Lab Room 205
