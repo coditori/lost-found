@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Component
@@ -29,6 +30,7 @@ public class DataInitializer implements CommandLineRunner {
         initializeAdminUser();
     }
 
+    @Transactional
     private void initializeAdminUser() {
         if (!userRepository.existsByUsername(adminUsername)) {
             log.info("Creating default admin user with username: {}", adminUsername);

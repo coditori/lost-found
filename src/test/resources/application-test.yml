@@ -22,8 +22,4 @@ logging:
   level:
     com.example.lostfound: DEBUG
     org.springframework.security: INFO
-    org.hibernate.SQL: DEBUG
-
-jwt:
-  secret: testSecretKey1234567890123456789012345678901234567890
-  expiration: 3600000 # 1 hour for tests 
+    org.hibernate.SQL: DEBUG 

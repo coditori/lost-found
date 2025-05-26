@@ -9,8 +9,6 @@ services:
       MYSQL_DATABASE: lostfound_db
       MYSQL_USER: lostfound_user
       MYSQL_PASSWORD: lostfound_password
-    ports:
-      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -30,9 +28,9 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - DB_USERNAME=lostfound_user
       - DB_PASSWORD=lostfound_password
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/lostfound_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/lostfound_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&autoReconnect=true&useServerPrepStmts=false&rewriteBatchedStatements=true
     ports:
-      - "8080:8080"
+      - "9095:8080"
     volumes:
       - ./uploads:/app/uploads
       - ./logs:/app/logs
