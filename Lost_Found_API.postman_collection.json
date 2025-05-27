@@ -1,0 +1,257 @@
+{
+  "info": {
+    "name": "Lost & Found API",
+    "description": "Simple API collection for testing the Lost & Found Service endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "12345678-1234-1234-1234-123456789012",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{username}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{password}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:9095",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "admin",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "admin123",
+      "type": "string"
+    },
+    {
+      "key": "user_username",
+      "value": "user",
+      "type": "string"
+    },
+    {
+      "key": "user_password",
+      "value": "password",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "User Operations",
+      "item": [
+        {
+          "name": "Browse Available Items",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{user_username}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{user_password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/items?page=0&size=20&sort=createdAt,desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "items"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                },
+                {
+                  "key": "sort",
+                  "value": "createdAt,desc"
+                }
+              ]
+            },
+            "description": "Get paginated list of available lost items"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Claim",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{user_username}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{user_password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lostItemId\": 1,\n  \"claimedQuantity\": 1,\n  \"notes\": \"I believe this is my item\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/claims",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "claims"]
+            },
+            "description": "Create a claim for a lost item"
+          },
+          "response": []
+        }
+      ],
+      "description": "User operations for browsing items and creating claims"
+    },
+    {
+      "name": "Admin Operations",
+      "item": [
+        {
+          "name": "Upload Lost Items File",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{username}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [],
+                  "description": "PDF file containing lost item records"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "upload"]
+            },
+            "description": "Upload a PDF file containing lost item records"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Claims",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{username}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/claims?page=0&size=20&sort=claimDate,desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "claims"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                },
+                {
+                  "key": "sort",
+                  "value": "claimDate,desc"
+                }
+              ]
+            },
+            "description": "Retrieve all claims with pagination"
+          },
+          "response": []
+        }
+      ],
+      "description": "Admin operations for managing lost items and claims"
+    }
+  ]
+} 

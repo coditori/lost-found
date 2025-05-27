@@ -4,36 +4,25 @@ spring:
   
   # Database Configuration
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/lostfound_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
-    username: ${DB_USERNAME:lostfound_user}
-    password: ${DB_PASSWORD:lostfound_password}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 5
-      connection-timeout: 20000
-      idle-timeout: 300000
-      max-lifetime: 1200000
+    url: jdbc:h2:mem:lostfound_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
   
   # H2 Console Configuration (disabled for production)
   h2:
     console:
-      enabled: false
+      enabled: true
+      path: /h2-console
   
   # JPA Configuration
   jpa:
     hibernate:
-      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
-    show-sql: false
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: true
-        use_sql_comments: false
-        jdbc:
-          batch_size: 20
-        order_inserts: true
-        order_updates: true
+        dialect: org.hibernate.dialect.H2Dialect
   
   # File Upload Configuration
   servlet:
@@ -71,9 +60,7 @@ file:
 logging:
   level:
     com.example.lostfound: INFO
-    org.springframework.security: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    root: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
