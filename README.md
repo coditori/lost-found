@@ -57,8 +57,8 @@ export ADMIN_PASSWORD=admin123
 
 ## API Documentation
 
-- **Swagger UI**: http://localhost:9095/swagger-ui.html
-- **OpenAPI JSON**: http://localhost:9095/api-docs
+- **Swagger UI**: http://localhost:8080/swagger-ui.html
+- **OpenAPI JSON**: http://localhost:8080/api-docs
 
 ## Key Endpoints
 
@@ -111,12 +111,12 @@ make deploy
 make stop
 ```
 
-Application runs at `http://localhost:9095`
+Application runs at `http://localhost:8080`
 
 ## Health Checks
 
-- **Health**: http://localhost:9095/actuator/health
-- **Metrics**: http://localhost:9095/actuator/metrics
+- **Health**: http://localhost:8080/actuator/health
+- **Metrics**: http://localhost:8080/actuator/metrics
 
 ## Future Improvements & Scalability
 
